@@ -1,0 +1,2 @@
+import { Logo } from './logo';
+export function Footer(){return <footer id="about" className="bg-[#07172d] text-white"><div className="container-nirman flex flex-col items-center justify-between gap-5 py-8 md:flex-row"><Logo light/><p className="text-sm text-white/55">One ecosystem. A stronger building experience.</p><div className="flex gap-5 text-sm font-semibold text-white/70"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div></div></footer>}

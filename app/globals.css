@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-nirman-ink antialiased; }
+* { box-sizing: border-box; }
+::selection { background: rgba(214,165,75,.24); }
+
+@layer components {
+  .container-nirman { @apply mx-auto w-[min(1220px,calc(100%-2rem))]; }
+  .glass-nav { @apply border-b border-slate-200/80 bg-white/90 backdrop-blur-xl; }
+  .card { @apply rounded-3xl border border-slate-200 bg-white shadow-[0_12px_38px_rgba(11,35,71,.06)]; }
+  .soft-grid {
+    background-image: linear-gradient(rgba(11,35,71,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(11,35,71,.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
