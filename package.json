@@ -1,0 +1,23 @@
+{
+  "name": "nirman-world-platform",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "npm@10.9.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev --filter=nirman-world",
+    "build": "turbo build --filter=nirman-world",
+    "lint": "turbo lint --filter=nirman-world",
+    "build:hostinger": "npm run build && node scripts/hostinger-copy.mjs"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  },
+  "engines": {
+    "node": ">=20.9.0 <21",
+    "npm": ">=10 <11"
+  }
+}
