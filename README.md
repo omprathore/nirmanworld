@@ -70,3 +70,24 @@ This package is the public Nirman.World frontend. It includes:
 - responsive mobile/desktop behavior
 
 Backend/API/database integration is intentionally not hard-coded here. The UI is ready to connect to a future API without changing the frontend architecture.
+
+
+## Hostinger deployment settings (corrected)
+
+Use the **Next.js** framework preset, not `Other`. The repository root build script has been adjusted so Hostinger's fixed `npm run build` command also prepares the publish folder automatically.
+
+- Framework preset: `Next.js`
+- Branch: `main`
+- Node version: `20.x`
+- Root directory: `./`
+- Build command: `npm run build`
+- Package manager: `npm`
+- Output directory: `hostinger_dist`
+- Environment variables: none required for this frontend
+
+Do not set an entry file. The `Other` preset is not required for this static-export deployment.
+
+The root build now performs both steps automatically:
+
+1. Builds the `nirman-world` Next.js app through Turborepo.
+2. Copies `apps/nirman-world/out` into the repository-root `hostinger_dist` folder for Hostinger to publish.
