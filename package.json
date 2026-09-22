@@ -11,7 +11,8 @@
     "dev": "turbo dev --filter=nirman-world",
     "build": "turbo build --filter=nirman-world && node scripts/hostinger-copy.mjs",
     "lint": "turbo lint --filter=nirman-world",
-    "build:hostinger": "npm run build"
+    "build:hostinger": "npm run build",
+    "start": "node server.js"
   },
   "devDependencies": {
     "turbo": "^2.5.6"
