@@ -1,32 +1,22 @@
-NIRMAN.WORLD — HOSTINGER DEPLOYMENT SETTINGS
-============================================
+NIRMAN.WORLD — CLEAN NATIVE NEXT.JS DEPLOYMENT
 
-Use these exact settings in Hostinger:
+IMPORTANT: This clean package intentionally contains NO server.js, NO hostinger_dist,
+NO scripts/hostinger-copy.mjs, and NO old apps/nirman-world copy.
 
-Framework preset: Other
+If replacing an older GitHub repo, DELETE stale files/folders first. Uploading this ZIP
+into an existing repo does not delete old files.
+
+The repository root should contain only the application folders/files from this package.
+
+Hostinger:
+Framework preset: Next.js
 Branch: main
 Node version: 20.x
 Root directory: ./
-Package manager: npm
 Build command: npm run build
-Entry file: server.js
+Package manager: npm
+Output directory: .next
+Entry file: blank / none
 
-IMPORTANT
----------
-- Do not use the Next.js preset for this deployment package.
-- Do not set .next as the output directory.
-- This repository builds the Next.js frontend as a static export into apps/nirman-world/out.
-- The root build script copies that export into hostinger_dist.
-- server.js serves hostinger_dist and listens on process.env.PORT, which is required for Hostinger's Node runtime.
-- The frontend code and selected stack remain unchanged.
-
-Build flow:
-  npm run build
-      -> Turborepo builds nirman-world
-      -> Next.js creates static export
-      -> scripts/hostinger-copy.mjs copies it to hostinger_dist
-
-Runtime flow:
-  node server.js
-      -> serves hostinger_dist
-      -> handles /, clean routes, _next assets and 404.html
+Runtime:
+npm start -> next start
