@@ -1,29 +1,46 @@
 'use client';
-import { SectionEyebrow, Button } from '@nirman/ui';
-import { stages } from '@/lib/data';
-import { useNirmanUI } from '@/lib/store';
+import { useState } from 'react';
 
-const positions = [
-  { left: '50%', top: '0%' },
-  { left: '82%', top: '12%' },
-  { left: '100%', top: '42%' },
-  { left: '92%', top: '77%' },
-  { left: '67%', top: '100%' },
-  { left: '33%', top: '100%' },
-  { left: '8%', top: '77%' },
-  { left: '0%', top: '42%' },
-  { left: '18%', top: '12%' }
+const stages = [
+  {name:'Planning', platform:'Nirman.World', services:['Requirement qualification','Budget planning','Feasibility','Timeline']},
+  {name:'Agreement', platform:'Nirman Legal', services:['Project agreement','Scope & terms','Compliance','Documentation']},
+  {name:'Design', platform:'DreamToDesign', services:['Architecture','BOQ & estimation','Structural design','3D visualization']},
+  {name:'Procurement', platform:'BuyForBuild', services:['Vendor matching','RFQ','Price comparison','Delivery tracking']},
+  {name:'Workforce', platform:'PayByDay', services:['Worker mobilisation','Attendance','Supervision','Wage visibility']},
+  {name:'Execution', platform:'SiteInSync', services:['Work packages','Daily progress','Site updates','Milestones']},
+  {name:'Quality & Safety', platform:'SiteInSync', services:['SOP checks','Inspections','Defect tracking','Safety audits']},
+  {name:'Payment', platform:'NirmanPay', services:['Budget tracking','Milestone payments','Vendor payouts','Payment history']},
+  {name:'Handover', platform:'Nirman.World', services:['Final checks','Snag closure','Documents','Project closure']}
 ];
-export function Lifecycle(){
-  const {activeStage,setActiveStage}=useNirmanUI();
-  const active=stages.find(s=>s.id===activeStage) ?? stages[0];
-  return <section id="project-journey" className="bg-nirman-mist py-24"><div className="container-nirman grid items-center gap-10 xl:grid-cols-[.75fr_1.25fr_.9fr]">
-    <div><SectionEyebrow>Project Journey</SectionEyebrow><h2 className="text-4xl font-extrabold leading-tight text-nirman-navy md:text-5xl">One Project.<br/>Every Stage. Connected.</h2><p className="mt-5 text-lg leading-8 text-nirman-muted">From planning to handover, Nirman.World manages every stage with the right people, processes and technology.</p><a href="#start"><Button className="mt-6">Explore the Project Lifecycle</Button></a></div>
-    <div className="mx-auto hidden aspect-square w-full max-w-[540px] rounded-full bg-[radial-gradient(circle_at_center,rgba(11,35,71,.04)_0_36%,transparent_36%),radial-gradient(circle_at_center,transparent_55%,rgba(11,35,71,.08)_55%_56%,transparent_56%)] md:block relative">
-      <div className="absolute left-1/2 top-1/2 grid aspect-square w-[42%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-center shadow-soft"><div><strong className="text-2xl font-extrabold text-nirman-navy">Nirman.World</strong><p className="mt-2 text-sm font-semibold text-slate-500">Your Project.<br/>Our Commitment.</p></div></div>
-      {stages.map((stage,i)=><button key={stage.id} onClick={()=>setActiveStage(stage.id)} style={positions[i]} className={`absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border bg-white p-2 text-center shadow-md transition hover:scale-105 ${activeStage===stage.id?'border-nirman-gold ring-4 ring-orange-100':'border-slate-200'}`}><span className="mx-auto grid h-7 w-7 place-items-center rounded-full bg-orange-50 text-xs font-extrabold text-nirman-gold">{i+1}</span><em className="mt-1 block text-[11px] font-extrabold not-italic leading-tight text-nirman-navy">{stage.label}</em></button>)}
+
+export default function Lifecycle(){
+  const [active,setActive] = useState(2);
+  const s = stages[active];
+  return <section id="lifecycle" className="bg-slate-50 py-20">
+    <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-[0.85fr_1.15fr] gap-12 items-center">
+      <div>
+        <p className="text-sm tracking-[.18em] uppercase font-bold text-amber-700">Project Journey</p>
+        <h2 className="text-4xl md:text-5xl font-extrabold mt-3 leading-tight">One Project. Every Stage. Connected.</h2>
+        <p className="text-slate-600 mt-5 text-lg leading-8">Click a stage to see the relevant Nirman services. Platforms stay behind the experience and appear only when needed.</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-8">
+          {stages.map((st,i)=><button key={st.name} onClick={()=>setActive(i)} className={`rounded-2xl border px-4 py-4 text-left font-semibold transition ${i===active?'border-amber-400 bg-amber-50 shadow-md':'border-slate-200 bg-white hover:border-slate-300'}`}>
+            <span className="text-xs text-slate-400 mr-2">{String(i+1).padStart(2,'0')}</span>{st.name}
+          </button>)}
+        </div>
+      </div>
+      <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-xl">
+        <div className="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-700 p-8 text-white">
+          <div className="text-sm uppercase tracking-[.18em] text-amber-300">Selected stage</div>
+          <h3 className="text-3xl font-extrabold mt-2">{s.name}</h3>
+          <div className="grid sm:grid-cols-2 gap-3 mt-6">
+            {s.services.map(x=><div key={x} className="rounded-xl bg-white/10 border border-white/10 px-4 py-3">{x}</div>)}
+          </div>
+        </div>
+        <div className="mt-5 flex items-center justify-between gap-4 border-t border-slate-200 pt-5">
+          <div><div className="text-xs uppercase tracking-wider text-slate-400">Powered by</div><div className="font-extrabold text-lg">{s.platform}</div></div>
+          <button className="rounded-xl bg-amber-500 px-5 py-3 font-bold text-slate-950">Explore services</button>
+        </div>
+      </div>
     </div>
-    <div className="md:hidden"><div className="grid gap-2">{stages.map((s,i)=><button key={s.id} onClick={()=>setActiveStage(s.id)} className={`flex items-center gap-3 rounded-2xl border p-4 text-left font-bold ${activeStage===s.id?'border-nirman-gold bg-white':'border-slate-200 bg-white/60'}`}><span className="grid h-8 w-8 place-items-center rounded-full bg-orange-50 text-nirman-gold">{i+1}</span>{s.label}</button>)}</div></div>
-    <aside className="card p-6"><p className="text-xs font-extrabold uppercase tracking-[.18em] text-nirman-gold">Selected Stage</p><h3 className="mt-3 text-3xl font-extrabold text-nirman-navy">{active.label}</h3><p className="mt-3 leading-7 text-nirman-muted">{active.description}</p><div className="mt-5 grid grid-cols-2 gap-2">{active.services.map(x=><div key={x} className="rounded-2xl bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">{x}</div>)}</div><div className="mt-5 border-t border-slate-200 pt-5"><p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-slate-400">Powered by</p><strong className="mt-1 block text-lg text-nirman-navy">{active.platform}</strong></div></aside>
-  </div></section>
+  </section>
 }
